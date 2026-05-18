@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thư viện ảnh — Quản trị Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrap">
+    <aside class="sidebar"></aside>
+    <main class="main">
+        <div class="topbar">
+            <h1>Thư viện ảnh</h1>
+            <div class="topbar-actions"></div>
+        </div>
+        <div class="content">
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Thêm ảnh mới</h2>
+                </div>
+                <div class="panel-body">
+                    <form id="img-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tiêu đề ảnh <span class="req">*</span></label>
+                                <input type="text" name="title" required placeholder="VD: Cổng Tam Quan">
+                            </div>
+                            <div class="form-group">
+                                <label>Danh mục</label>
+                                <select name="category" id="cat-select"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn ảnh từ máy</label>
+                            <input type="file" name="image" id="image-input" accept="image/*">
+                            <div class="hint">Ảnh sẽ được lưu vào trình duyệt (demo). Khi triển khai thật, ảnh sẽ upload lên server. Khuyến nghị ảnh dưới 1MB cho demo.</div>
+                        </div>
+                        <div id="preview" style="display:none; margin: 16px 0;">
+                            <img id="preview-img" style="max-width: 240px; max-height: 200px; border-radius: 8px; border: 1px solid var(--color-border);">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-pri">+ Thêm vào thư viện</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Ảnh trong thư viện</h2>
+                    <select id="filter-cat" style="padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 6px;">
+                        <option value="">Tất cả danh mục</option>
+                    </select>
+                </div>
+                <div class="panel-body">
+                    <div class="image-grid" id="gallery-grid"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+    initAdminLayout('gallery', 'Thư viện ảnh');
+
+    const catSelect = document.getElementById('cat-select');
+    const filterCat = document.getElementById('filter-cat');
+    Object.entries(GALLERY_CATEGORIES).forEach(([k, v]) => {
+        catSelect.insertAdjacentHTML('beforeend', `<option value="${k}">${v}</option>`);
+        filterCat.insertAdjacentHTML('beforeend', `<option value="${k}">${v}</option>`);
+    });
+
+    const imageInput = document.getElementById('image-input');
+    const preview = document.getElementById('preview');
+    const previewImg = document.getElementById('preview-img');
+    let currentDataUrl = '';
+
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) { preview.style.display = 'none'; currentDataUrl = ''; return; }
+        if (file.size > 2 * 1024 * 1024) {
+            toast('Ảnh lớn quá 2MB — có thể chậm trong demo', 'info');
+        }
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            currentDataUrl = ev.target.result;
+            previewImg.src = currentDataUrl;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('img-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        Data.add('gallery', {
+            title: fd.get('title').trim(),
+            category: fd.get('category'),
+            imageDataUrl: currentDataUrl
+        });
+        toast('Đã thêm ảnh vào thư viện');
+        e.target.reset();
+        preview.style.display = 'none';
+        currentDataUrl = '';
+        render();
+    });
+
+    async function delImg(id) {
+        const img = Data.get('gallery', id);
+        const ok = await confirmModal({
+            title: 'Xóa ảnh?',
+            message: `Bạn có chắc muốn xóa ảnh "${img?.title || ''}"?`,
+            confirmLabel: 'Xóa'
+        });
+        if (ok) {
+            Data.remove('gallery', id);
+            toast('Đã xóa ảnh');
+            render();
+        }
+    }
+
+    filterCat.addEventListener('change', render);
+
+    function render() {
+        const all = Data.list('gallery');
+        const cat = filterCat.value;
+        const filtered = cat ? all.filter(i => i.category === cat) : all;
+        const grid = document.getElementById('gallery-grid');
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="empty" style="grid-column: 1 / -1;">
+                <div class="empty-icon">🖼️</div>
+                Chưa có ảnh trong thư viện
+            </div>`;
+            return;
+        }
+        grid.innerHTML = filtered.map(img => `
+            <div class="image-tile">
+                <div class="img-preview">
+                    ${img.imageDataUrl ? `<img src="${img.imageDataUrl}" alt="${escapeHtml(img.title)}">` : '<span>[Chưa có ảnh]</span>'}
+                </div>
+                <div class="img-meta">
+                    <div class="title">${escapeHtml(img.title)}</div>
+                    <div class="cat">${escapeHtml(GALLERY_CATEGORIES[img.category] || img.category || '')}</div>
+                </div>
+                <div class="img-actions">
+                    <button class="btn btn-sm btn-danger" onclick="delImg(${img.id})">🗑 Xóa</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    render();
+</script>
+</body>
+</html>

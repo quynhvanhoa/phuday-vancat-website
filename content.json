@@ -1,0 +1,58 @@
+{
+  "settings": {
+    "siteName": "Phủ Dầy Vân Cát",
+    "tagline": "Nơi Mẫu giáng sinh lần thứ hai",
+    "phone": "",
+    "email": "lienhe@phudayvancat.vn",
+    "address": "Phủ Dầy Vân Cát, xã Kim Thái, huyện Vụ Bản, tỉnh Ninh Bình",
+    "openHours": "Tất cả các ngày, 06:00 — 19:00",
+    "bankInfo": ""
+  },
+  "posts": [
+    {
+      "id": 1,
+      "title": "Khánh thành công trình trùng tu Cung Đệ Tam",
+      "slug": "khanh-thanh-cung-de-tam",
+      "category": "su-kien",
+      "excerpt": "Sau hơn một năm trùng tu, Cung Đệ Tam được khánh thành đúng vào dịp Tiệc Mẫu tháng Ba.",
+      "content": "Sau hơn một năm trùng tu, Cung Đệ Tam được khánh thành đúng vào dịp Tiệc Mẫu tháng Ba, mở ra giai đoạn mới gìn giữ di sản.\n\nLễ khánh thành quy tụ đông đảo tín hữu, các nhà nghiên cứu và đại diện chính quyền địa phương. Công trình trùng tu được thực hiện theo đúng phong cách kiến trúc nguyên bản, sử dụng các vật liệu truyền thống.",
+      "date": "2026-05-18",
+      "published": true
+    },
+    {
+      "id": 2,
+      "title": "Hội thi hát văn truyền thống Phủ Dầy 2026",
+      "slug": "hoi-thi-hat-van-2026",
+      "category": "le-hoi",
+      "excerpt": "Hội thi quy tụ các cung văn, thanh đồng từ khắp các tỉnh thành về dâng kính Mẫu.",
+      "content": "Hội thi hát văn truyền thống Phủ Dầy 2026 quy tụ các cung văn, thanh đồng từ khắp các tỉnh thành về dâng kính Mẫu, tôn vinh nghệ thuật hát văn — di sản phi vật thể đại diện của nhân loại.\n\nHội thi gồm các vòng sơ khảo, bán kết và chung kết, với sự tham gia của hàng trăm nghệ nhân trẻ.",
+      "date": "2026-05-10",
+      "published": true
+    },
+    {
+      "id": 3,
+      "title": "Lễ rước Mẫu — Truyền thống nghìn năm",
+      "slug": "le-ruoc-mau",
+      "category": "le-hoi",
+      "excerpt": "Đoàn rước Mẫu qua các phủ chính tại quần thể Phủ Dầy thu hút hàng vạn người dân hành hương.",
+      "content": "Đoàn rước Mẫu qua các phủ chính tại quần thể Phủ Dầy thu hút hàng vạn người dân hành hương từ khắp nơi đổ về. Đây là một trong những nghi lễ trang trọng nhất trong dịp tiệc Mẫu tháng Ba.",
+      "date": "2026-05-03",
+      "published": true
+    }
+  ],
+  "events": [
+    {"id": 1, "title": "Tiệc Mẫu Liễu Hạnh — Tiệc chính", "lunarDate": "03/03 ÂL", "description": "Tiệc lớn nhất trong năm, kỷ niệm ngày Thánh Mẫu hóa thân.", "type": "tiec"},
+    {"id": 2, "title": "Tiệc Quan Lớn Đệ Tam", "lunarDate": "24/06 ÂL", "description": "Tưởng nhớ Quan Lớn Đệ Tam Thoải Phủ.", "type": "tiec"},
+    {"id": 3, "title": "Tiệc Chầu Lục Sơn Trang", "lunarDate": "12/09 ÂL", "description": "Tiệc tưởng niệm Chầu Lục — vị Chầu cai quản miền sơn lâm.", "type": "tiec"},
+    {"id": 4, "title": "Tiệc Ông Hoàng Mười", "lunarDate": "10/10 ÂL", "description": "Tiệc tưởng nhớ Ông Hoàng Mười.", "type": "tiec"},
+    {"id": 5, "title": "Tiệc Cô Đôi Thượng Ngàn", "lunarDate": "02/02 ÂL", "description": "Tưởng nhớ Cô Đôi — vị Thánh Cô hầu cận Mẫu Thượng Ngàn.", "type": "tiec"}
+  ],
+  "gallery": [
+    {"id": 1, "title": "Cổng Tam Quan", "category": "kien-truc", "imageDataUrl": ""},
+    {"id": 2, "title": "Tiền tế", "category": "kien-truc", "imageDataUrl": ""},
+    {"id": 3, "title": "Trung từ", "category": "kien-truc", "imageDataUrl": ""},
+    {"id": 4, "title": "Cung Cấm", "category": "kien-truc", "imageDataUrl": ""},
+    {"id": 5, "title": "Lễ rước Mẫu", "category": "le-hoi", "imageDataUrl": ""},
+    {"id": 6, "title": "Hội kéo chữ", "category": "le-hoi", "imageDataUrl": ""}
+  ]
+}

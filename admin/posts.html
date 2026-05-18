@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài viết — Quản trị Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrap">
+    <aside class="sidebar"></aside>
+    <main class="main">
+        <div class="topbar">
+            <h1>Bài viết</h1>
+            <div class="topbar-actions"></div>
+        </div>
+        <div class="content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Danh sách bài viết</h2>
+                    <a href="post-edit.html" class="btn btn-pri">+ Thêm bài viết mới</a>
+                </div>
+                <div class="panel-body">
+                    <div class="filter-bar">
+                        <input type="search" id="search" placeholder="Tìm theo tiêu đề...">
+                        <select id="filter-category">
+                            <option value="">Tất cả danh mục</option>
+                        </select>
+                        <select id="filter-status">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="published">Đã đăng</option>
+                            <option value="draft">Nháp</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiêu đề</th>
+                                    <th>Danh mục</th>
+                                    <th>Ngày</th>
+                                    <th>Trạng thái</th>
+                                    <th style="width:160px">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="posts-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+    initAdminLayout('posts', 'Bài viết');
+
+    const filterCat = document.getElementById('filter-category');
+    Object.entries(POST_CATEGORIES).forEach(([k, v]) => {
+        const opt = document.createElement('option');
+        opt.value = k; opt.textContent = v;
+        filterCat.appendChild(opt);
+    });
+
+    function render() {
+        const all = Data.list('posts');
+        const q = document.getElementById('search').value.toLowerCase().trim();
+        const cat = filterCat.value;
+        const status = document.getElementById('filter-status').value;
+
+        let filtered = all;
+        if (q) filtered = filtered.filter(p => p.title.toLowerCase().includes(q));
+        if (cat) filtered = filtered.filter(p => p.category === cat);
+        if (status === 'published') filtered = filtered.filter(p => p.published);
+        if (status === 'draft') filtered = filtered.filter(p => !p.published);
+
+        filtered.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+
+        const tbody = document.getElementById('posts-table');
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="empty">
+                <div class="empty-icon">📝</div>
+                Chưa có bài viết phù hợp
+            </td></tr>`;
+            return;
+        }
+        tbody.innerHTML = filtered.map(p => `
+            <tr>
+                <td><a href="post-edit.html?id=${p.id}"><strong>${escapeHtml(p.title)}</strong></a></td>
+                <td>${escapeHtml(POST_CATEGORIES[p.category] || p.category || '—')}</td>
+                <td>${formatDate(p.date)}</td>
+                <td>${p.published ? '<span class="badge badge-success">Đã đăng</span>' : '<span class="badge badge-warn">Nháp</span>'}</td>
+                <td>
+                    <div class="actions-cell">
+                        <a href="post-edit.html?id=${p.id}" class="btn btn-sm">✎ Sửa</a>
+                        <button class="btn btn-sm btn-danger" onclick="del(${p.id})">🗑 Xóa</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    async function del(id) {
+        const post = Data.get('posts', id);
+        const ok = await confirmModal({
+            title: 'Xóa bài viết?',
+            message: `Bạn có chắc muốn xóa bài "${post?.title || ''}"? Hành động không thể hoàn tác.`,
+            confirmLabel: 'Xóa'
+        });
+        if (ok) {
+            Data.remove('posts', id);
+            toast('Đã xóa bài viết');
+            render();
+        }
+    }
+
+    document.getElementById('search').addEventListener('input', render);
+    filterCat.addEventListener('change', render);
+    document.getElementById('filter-status').addEventListener('change', render);
+    render();
+</script>
+</body>
+</html>

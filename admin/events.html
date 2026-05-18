@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sự kiện — Quản trị Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrap">
+    <aside class="sidebar"></aside>
+    <main class="main">
+        <div class="topbar">
+            <h1>Sự kiện / Lịch tiệc</h1>
+            <div class="topbar-actions"></div>
+        </div>
+        <div class="content">
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 id="form-title">Thêm sự kiện mới</h2>
+                </div>
+                <div class="panel-body">
+                    <form id="event-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tên sự kiện <span class="req">*</span></label>
+                                <input type="text" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại</label>
+                                <select name="type">
+                                    <option value="tiec">Tiệc Mẫu / Quan / Chầu / Cô / Cậu</option>
+                                    <option value="le-hoi">Lễ hội</option>
+                                    <option value="hau-dong">Hầu đồng</option>
+                                    <option value="khac">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ngày (âm lịch)</label>
+                                <input type="text" name="lunarDate" placeholder="VD: 03/03 ÂL">
+                            </div>
+                            <div class="form-group">
+                                <label>Ngày dương lịch (tùy chọn)</label>
+                                <input type="text" name="gregorianDate" placeholder="VD: 20/04/2026">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả</label>
+                            <textarea name="description" style="min-height:100px"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="cancel-btn" class="btn" style="display:none">Hủy chỉnh sửa</button>
+                            <button type="submit" class="btn btn-pri">💾 Lưu sự kiện</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Danh sách sự kiện</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tên sự kiện</th>
+                                    <th>Ngày âm</th>
+                                    <th>Ngày dương</th>
+                                    <th>Loại</th>
+                                    <th style="width:160px">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="events-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+    initAdminLayout('events', 'Sự kiện / Lịch tiệc');
+
+    const TYPE_LABELS = {
+        'tiec': 'Tiệc',
+        'le-hoi': 'Lễ hội',
+        'hau-dong': 'Hầu đồng',
+        'khac': 'Khác'
+    };
+
+    const form = document.getElementById('event-form');
+    const formTitle = document.getElementById('form-title');
+    const cancelBtn = document.getElementById('cancel-btn');
+    let editingId = null;
+
+    function resetForm() {
+        editingId = null;
+        form.reset();
+        formTitle.textContent = 'Thêm sự kiện mới';
+        cancelBtn.style.display = 'none';
+    }
+
+    function editEvent(id) {
+        const evt = Data.get('events', id);
+        if (!evt) return;
+        editingId = id;
+        form.title.value = evt.title || '';
+        form.type.value = evt.type || 'tiec';
+        form.lunarDate.value = evt.lunarDate || '';
+        form.gregorianDate.value = evt.gregorianDate || '';
+        form.description.value = evt.description || '';
+        formTitle.textContent = 'Sửa sự kiện: ' + evt.title;
+        cancelBtn.style.display = 'inline-flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function delEvent(id) {
+        const evt = Data.get('events', id);
+        const ok = await confirmModal({
+            title: 'Xóa sự kiện?',
+            message: `Bạn có chắc muốn xóa sự kiện "${evt?.title || ''}"?`,
+            confirmLabel: 'Xóa'
+        });
+        if (ok) {
+            Data.remove('events', id);
+            toast('Đã xóa sự kiện');
+            render();
+        }
+    }
+
+    function render() {
+        const items = Data.list('events');
+        const tbody = document.getElementById('events-table');
+        if (items.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="empty">
+                <div class="empty-icon">📅</div>
+                Chưa có sự kiện nào
+            </td></tr>`;
+            return;
+        }
+        tbody.innerHTML = items.map(e => `
+            <tr>
+                <td>
+                    <strong>${escapeHtml(e.title)}</strong>
+                    ${e.description ? `<div style="color:var(--color-text-light); font-size:0.85rem; margin-top:4px;">${escapeHtml(e.description.slice(0, 100))}${e.description.length > 100 ? '...' : ''}</div>` : ''}
+                </td>
+                <td>${escapeHtml(e.lunarDate || '—')}</td>
+                <td>${escapeHtml(e.gregorianDate || '—')}</td>
+                <td><span class="badge badge-info">${TYPE_LABELS[e.type] || e.type}</span></td>
+                <td>
+                    <div class="actions-cell">
+                        <button class="btn btn-sm" onclick="editEvent(${e.id})">✎ Sửa</button>
+                        <button class="btn btn-sm btn-danger" onclick="delEvent(${e.id})">🗑 Xóa</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    cancelBtn.addEventListener('click', resetForm);
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const data = {
+            title: fd.get('title').trim(),
+            type: fd.get('type'),
+            lunarDate: fd.get('lunarDate').trim(),
+            gregorianDate: fd.get('gregorianDate').trim(),
+            description: fd.get('description').trim()
+        };
+        if (editingId) {
+            Data.update('events', editingId, data);
+            toast('Đã cập nhật sự kiện');
+        } else {
+            Data.add('events', data);
+            toast('Đã thêm sự kiện mới');
+        }
+        resetForm();
+        render();
+    });
+
+    render();
+</script>
+</body>
+</html>

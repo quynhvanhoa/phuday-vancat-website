@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài viết — Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">慕</div>
+            <div class="logo-text">
+                <span class="logo-name">Phủ Dầy Vân Cát</span>
+                <span class="logo-tagline">Nơi Mẫu giáng sinh lần thứ hai</span>
+            </div>
+        </a>
+        <button class="mobile-toggle" aria-label="Mở menu" aria-expanded="false">&#9776;</button>
+        <nav class="nav">
+            <a href="index.html">Trang chủ</a>
+            <a href="gioi-thieu.html">Giới thiệu</a>
+            <a href="tin-nguong-tho-mau.html">Tín ngưỡng thờ Mẫu</a>
+            <a href="tour-360.html">Tour 360°</a>
+            <a href="le-hoi.html">Lễ hội</a>
+            <a href="thu-vien.html">Thư viện</a>
+            <a href="tin-tuc.html" class="active">Tin tức</a>
+            <a href="lien-he.html">Liên hệ</a>
+            <span class="lang-switch">
+                <a href="bai-viet.html" class="active">VI</a>
+                <a href="en/post.html">EN</a>
+            </span>
+        </nav>
+    </div>
+</header>
+
+<section class="page-banner">
+    <h1 id="post-title">Đang tải...</h1>
+    <div class="breadcrumb"><a href="index.html">Trang chủ</a> / <a href="tin-tuc.html">Tin tức</a> / <span id="bc-title">...</span></div>
+</section>
+
+<section class="section">
+    <div class="container" style="max-width: 800px;">
+        <article class="article" id="post-container">
+            <div style="text-align:center; padding: 40px; color: var(--color-text-light);">Đang tải bài viết...</div>
+        </article>
+
+        <div style="margin-top: 32px; text-align: center;">
+            <a href="tin-tuc.html" class="btn">← Quay lại danh sách tin tức</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>Phủ Dầy Vân Cát</h4><p style="color:rgba(255,255,255,0.7); font-size:0.95rem;">Nơi Mẫu Liễu Hạnh giáng sinh lần thứ hai.</p></div>
+            <div><h4>Khám phá</h4><ul><li><a href="gioi-thieu.html">Giới thiệu</a></li><li><a href="tin-nguong-tho-mau.html">Tín ngưỡng thờ Mẫu</a></li><li><a href="tour-360.html">Tour 360°</a></li><li><a href="le-hoi.html">Lễ hội</a></li></ul></div>
+            <div><h4>Tài nguyên</h4><ul><li><a href="thu-vien.html">Thư viện</a></li><li><a href="tin-tuc.html">Tin tức</a></li><li><a href="lien-he.html">Liên hệ</a></li></ul></div>
+            <div><h4>Ngôn ngữ</h4><ul><li><a href="index.html">Tiếng Việt</a></li><li><a href="en/index.html">English</a></li></ul></div>
+        </div>
+        <div class="footer-bottom">© 2026 Phủ Dầy Vân Cát · Mọi quyền được bảo lưu</div>
+    </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function() {
+    const STORAGE_KEY = 'phuday_data_v1';
+    const CAT = { 'su-kien': 'Sự kiện', 'le-hoi': 'Lễ hội', 'hoat-dong': 'Hoạt động xã hội', 'chuyen-de': 'Chuyên đề', 'thong-bao': 'Thông báo' };
+
+    function escapeHtml(s) {
+        if (s == null) return '';
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function formatDate(iso) {
+        if (!iso) return '';
+        const [y, m, d] = iso.split('-');
+        return `${d}/${m}/${y}`;
+    }
+
+    const id = parseInt(new URLSearchParams(window.location.search).get('id'));
+    let data;
+    try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch {}
+
+    const container = document.getElementById('post-container');
+    const titleEl = document.getElementById('post-title');
+    const bcEl = document.getElementById('bc-title');
+
+    if (!data || !data.posts) {
+        container.innerHTML = `
+            <div style="text-align:center; padding: 40px;">
+                <p style="color: var(--color-text-light); margin-bottom: 16px;">Chưa có dữ liệu bài viết. Vui lòng vào trang chủ một lần để khởi tạo dữ liệu mẫu.</p>
+                <a href="index.html" class="btn">Về trang chủ</a>
+            </div>
+        `;
+        titleEl.textContent = 'Không tải được bài viết';
+        bcEl.textContent = '—';
+        return;
+    }
+
+    const post = data.posts.find(p => p.id === id);
+
+    if (!post) {
+        container.innerHTML = `
+            <div style="text-align:center; padding: 40px;">
+                <p style="color: var(--color-text-light); margin-bottom: 16px;">Không tìm thấy bài viết với mã <code>id=${id}</code>.</p>
+                <a href="tin-tuc.html" class="btn">Xem danh sách bài viết</a>
+            </div>
+        `;
+        titleEl.textContent = 'Không tìm thấy bài viết';
+        bcEl.textContent = 'Không tồn tại';
+        return;
+    }
+
+    if (post.published === false) {
+        container.innerHTML = `
+            <div style="text-align:center; padding: 40px;">
+                <p style="color: var(--color-text-light);">Bài viết này hiện đang là <strong>bản nháp</strong>, chưa được xuất bản công khai.</p>
+            </div>
+        `;
+        titleEl.textContent = 'Bài viết chưa xuất bản';
+        bcEl.textContent = 'Nháp';
+        return;
+    }
+
+    document.title = post.title + ' — Phủ Dầy Vân Cát';
+    titleEl.textContent = post.title;
+    bcEl.textContent = post.title;
+
+    const contentHtml = escapeHtml(post.content || post.excerpt || '')
+        .split(/\n\n+/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+
+    container.innerHTML = `
+        <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border); display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+            <span style="color: var(--color-gold); font-weight: 600;">📅 ${formatDate(post.date)}</span>
+            <span style="background: rgba(139, 0, 0, 0.1); color: var(--color-primary); padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">${escapeHtml(CAT[post.category] || post.category || 'Tin tức')}</span>
+        </div>
+        ${post.excerpt ? `<p style="font-size: 1.15rem; font-style: italic; color: var(--color-text-light); margin-bottom: 24px;">${escapeHtml(post.excerpt)}</p>` : ''}
+        ${contentHtml}
+    `;
+})();
+</script>
+<script src="assets/js/public-content.js"></script>
+</body>
+</html>

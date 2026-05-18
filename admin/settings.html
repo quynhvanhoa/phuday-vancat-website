@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cài đặt — Quản trị Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrap">
+    <aside class="sidebar"></aside>
+    <main class="main">
+        <div class="topbar">
+            <h1>Cài đặt</h1>
+            <div class="topbar-actions"></div>
+        </div>
+        <div class="content">
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Thông tin chung</h2>
+                </div>
+                <div class="panel-body">
+                    <form id="settings-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tên website</label>
+                                <input type="text" name="siteName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tagline (câu giới thiệu ngắn)</label>
+                                <input type="text" name="tagline">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" name="address">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Điện thoại</label>
+                                <input type="text" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Giờ mở cửa</label>
+                            <input type="text" name="openHours">
+                        </div>
+                        <div class="form-group">
+                            <label>Thông tin tài khoản cung tiến (tùy chọn)</label>
+                            <textarea name="bankInfo" style="min-height:80px" placeholder="VD: Ngân hàng XYZ - Số TK: ... - Chủ TK: Phủ Dầy Vân Cát"></textarea>
+                            <div class="hint">Để trống nếu không muốn công khai trên website.</div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-pri">💾 Lưu cài đặt</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Sao lưu & Khôi phục</h2>
+                </div>
+                <div class="panel-body">
+                    <p style="margin-bottom: 16px; color: var(--color-text-light);">Xuất toàn bộ nội dung (bài viết, sự kiện, ảnh, cài đặt) thành file JSON để sao lưu hoặc chuyển sang hệ thống thật.</p>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn" onclick="Data.export()">⬇ Xuất file JSON</button>
+                        <label class="btn" style="cursor: pointer;">
+                            ⬆ Khôi phục từ file
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </label>
+                        <button class="btn btn-danger" onclick="resetAll()">⟲ Khôi phục dữ liệu mẫu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Tài khoản</h2>
+                </div>
+                <div class="panel-body">
+                    <p style="margin-bottom: 12px;"><strong>Tài khoản đang đăng nhập:</strong> <code id="current-user"></code></p>
+                    <p style="color: var(--color-text-light); margin-bottom: 16px;">
+                        Đây là phiên bản demo, tài khoản và mật khẩu được mã hóa cứng. Khi triển khai trên WordPress sẽ có hệ thống quản lý người dùng đầy đủ (thêm/xóa tài khoản, phân quyền, đổi mật khẩu, xác thực 2 lớp).
+                    </p>
+                    <button class="btn btn-danger" onclick="Auth.logout()">🚪 Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+    initAdminLayout('settings', 'Cài đặt');
+
+    document.getElementById('current-user').textContent = Auth.current()?.user || '—';
+
+    const settings = Data.getSettings();
+    const form = document.getElementById('settings-form');
+    Object.entries(settings).forEach(([k, v]) => {
+        if (form.elements[k]) form.elements[k].value = v || '';
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const newSettings = {};
+        for (const [k, v] of fd.entries()) newSettings[k] = v;
+        Data.saveSettings(newSettings);
+        toast('Đã lưu cài đặt');
+    });
+
+    document.getElementById('import-file').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async function(ev) {
+            const ok = await confirmModal({
+                title: 'Khôi phục từ file?',
+                message: 'Mọi dữ liệu hiện tại sẽ bị thay thế bằng dữ liệu trong file. Tiếp tục?',
+                confirmLabel: 'Khôi phục'
+            });
+            if (ok) {
+                try {
+                    Data.import(ev.target.result);
+                    toast('Đã khôi phục dữ liệu');
+                    setTimeout(() => window.location.reload(), 800);
+                } catch (err) {
+                    toast('File không hợp lệ', 'error');
+                }
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    async function resetAll() {
+        const ok = await confirmModal({
+            title: 'Khôi phục dữ liệu mẫu?',
+            message: 'Mọi thay đổi của bạn sẽ bị xóa và khôi phục về trạng thái ban đầu. Hành động không thể hoàn tác.',
+            confirmLabel: 'Khôi phục'
+        });
+        if (ok) {
+            Data.reset();
+            toast('Đã khôi phục dữ liệu mẫu');
+            setTimeout(() => window.location.reload(), 800);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soạn bài viết — Quản trị Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrap">
+    <aside class="sidebar"></aside>
+    <main class="main">
+        <div class="topbar">
+            <h1>Soạn bài viết</h1>
+            <div class="topbar-actions"></div>
+        </div>
+        <div class="content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 id="form-title">Thêm bài viết mới</h2>
+                    <a href="posts.html" class="btn">← Quay lại danh sách</a>
+                </div>
+                <div class="panel-body">
+                    <form id="post-form">
+                        <div class="form-group">
+                            <label>Tiêu đề <span class="req">*</span></label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Đường dẫn (slug)</label>
+                                <input type="text" name="slug">
+                                <div class="hint">Tự sinh từ tiêu đề nếu để trống.</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Danh mục</label>
+                                <select name="category" id="category-select"></select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ngày đăng</label>
+                                <input type="date" name="date">
+                            </div>
+                            <div class="form-group">
+                                <label>Trạng thái</label>
+                                <select name="published">
+                                    <option value="true">Đã đăng (hiển thị công khai)</option>
+                                    <option value="false">Nháp (chỉ admin thấy)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tóm tắt <span class="req">*</span></label>
+                            <textarea name="excerpt" required style="min-height:80px"></textarea>
+                            <div class="hint">Tóm tắt 1–2 câu, hiển thị trên trang chủ và trang Tin tức.</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nội dung chi tiết <span class="req">*</span></label>
+                            <textarea name="content" required style="min-height:280px"></textarea>
+                            <div class="hint">Nội dung đầy đủ của bài viết. Hỗ trợ xuống dòng.</div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn" onclick="window.location.href='posts.html'">Hủy</button>
+                            <button type="submit" class="btn btn-pri">💾 Lưu bài viết</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+    initAdminLayout('posts', 'Soạn bài viết');
+
+    const catSelect = document.getElementById('category-select');
+    Object.entries(POST_CATEGORIES).forEach(([k, v]) => {
+        const opt = document.createElement('option');
+        opt.value = k; opt.textContent = v;
+        catSelect.appendChild(opt);
+    });
+
+    const id = parseInt(getQueryParam('id'));
+    const form = document.getElementById('post-form');
+    let editing = null;
+
+    if (id) {
+        editing = Data.get('posts', id);
+        if (editing) {
+            document.getElementById('form-title').textContent = 'Sửa bài viết';
+            form.title.value = editing.title || '';
+            form.slug.value = editing.slug || '';
+            form.category.value = editing.category || 'su-kien';
+            form.date.value = editing.date || '';
+            form.published.value = String(editing.published !== false);
+            form.excerpt.value = editing.excerpt || '';
+            form.content.value = editing.content || '';
+        }
+    } else {
+        form.date.value = new Date().toISOString().slice(0, 10);
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const data = {
+            title: fd.get('title').trim(),
+            slug: fd.get('slug').trim() || slugify(fd.get('title')),
+            category: fd.get('category'),
+            date: fd.get('date'),
+            published: fd.get('published') === 'true',
+            excerpt: fd.get('excerpt').trim(),
+            content: fd.get('content').trim()
+        };
+        if (editing) {
+            Data.update('posts', editing.id, data);
+            toast('Đã cập nhật bài viết');
+        } else {
+            Data.add('posts', data);
+            toast('Đã tạo bài viết mới');
+        }
+        setTimeout(() => window.location.href = 'posts.html', 700);
+    });
+</script>
+</body>
+</html>

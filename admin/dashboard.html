@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Quản trị Phủ Dầy Vân Cát</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrap">
+    <aside class="sidebar"></aside>
+    <main class="main">
+        <div class="topbar">
+            <h1>Dashboard</h1>
+            <div class="topbar-actions"></div>
+        </div>
+        <div class="content">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="label">Bài viết</div>
+                    <div class="value" id="stat-posts">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Sự kiện / Tiệc</div>
+                    <div class="value" id="stat-events">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Ảnh thư viện</div>
+                    <div class="value" id="stat-gallery">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Bài đã xuất bản</div>
+                    <div class="value" id="stat-published">0</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Bài viết gần đây</h2>
+                    <a href="posts.html" class="btn">Xem tất cả</a>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>Danh mục</th>
+                                <th>Ngày</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-posts"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel" style="border-left: 4px solid var(--color-gold);">
+                <div class="panel-header">
+                    <h2>🚀 Xuất bản nội dung lên website</h2>
+                </div>
+                <div class="panel-body">
+                    <p style="margin-bottom: 16px; color: var(--color-text);">
+                        Sau khi sửa xong nội dung, làm 3 bước sau để website thật hiển thị nội dung mới:
+                    </p>
+                    <ol style="margin-left: 20px; line-height: 1.9; margin-bottom: 16px;">
+                        <li><strong>Click "Xuất bản"</strong> bên dưới → tải file <code>content.json</code> về máy</li>
+                        <li>Mở GitHub repository của chị → kéo thả file vừa tải vào (ghi đè file cũ) → commit</li>
+                        <li>Đợi 1–2 phút → GitHub Pages tự build → website cập nhật nội dung mới</li>
+                    </ol>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <button class="btn btn-pri" onclick="publishNow()" style="font-size: 1rem; padding: 12px 24px;">🚀 Xuất bản (tải content.json)</button>
+                        <button class="btn" onclick="syncFromServer()">⬇ Tải nội dung đang sống về sửa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Thao tác nhanh</h2>
+                </div>
+                <div class="panel-body" style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="post-edit.html" class="btn btn-pri">+ Thêm bài viết mới</a>
+                    <a href="events.html" class="btn">+ Thêm sự kiện</a>
+                    <a href="gallery.html" class="btn">+ Thêm ảnh</a>
+                    <button class="btn" onclick="Data.export()">⬇ Sao lưu toàn bộ (JSON)</button>
+                    <button class="btn btn-danger" onclick="resetData()">⟲ Khôi phục dữ liệu mẫu</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Phạm vi quản lý của admin (bản demo)</h2>
+                </div>
+                <div class="panel-body">
+                    <p style="margin-bottom: 16px; padding: 12px; background: var(--color-cream); border-left: 4px solid var(--color-gold); border-radius: 4px;">
+                        <strong>Quan trọng:</strong> Phiên bản demo này chỉ quản 4 loại nội dung dưới đây. Khi triển khai thật trên WordPress sẽ quản được TẤT CẢ nội dung trên website (kể cả lời chào, các thẻ giới thiệu, trang Tín ngưỡng, Tour 360...).
+                    </p>
+
+                    <h3 style="font-family: var(--font-heading); color: var(--color-success); margin: 16px 0 8px;">✅ Có thể sửa trong demo:</h3>
+                    <table style="margin-bottom: 16px;">
+                        <thead>
+                            <tr>
+                                <th>Mục admin</th>
+                                <th>Hiển thị trên website</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>📝 Bài viết</strong></td>
+                                <td>Phần "Tin tức nhà đền" trên trang chủ + toàn bộ trang Tin tức</td>
+                            </tr>
+                            <tr>
+                                <td><strong>📅 Sự kiện</strong></td>
+                                <td>Phần "Lịch tiệc Mẫu trong năm" trên trang Lễ hội</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🖼️ Thư viện ảnh</strong></td>
+                                <td>Trang Thư viện ảnh (phân theo 4 danh mục)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>⚙️ Cài đặt</strong></td>
+                                <td>Email, SĐT — hiển thị ở trang Liên hệ và footer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 style="font-family: var(--font-heading); color: var(--color-danger); margin: 16px 0 8px;">❌ Chưa sửa được trong demo (sẽ có khi triển khai WordPress):</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Lời chào của thủ nhang trên trang chủ</li>
+                        <li>Các thẻ giới thiệu (Tour 360, Tín ngưỡng, Lễ hội, Cung tiến)</li>
+                        <li>Nội dung trang Giới thiệu, Tín ngưỡng thờ Mẫu</li>
+                        <li>Mô tả các điểm trong Tour 360</li>
+                        <li>Bản đồ tour 360 (sẽ là iframe Kuula/3DVista)</li>
+                        <li>Logo, banner, ảnh hero</li>
+                    </ul>
+                    <p style="margin-top: 12px; color: var(--color-text-light); font-style: italic;">
+                        Lý do: Phiên bản demo chạy bằng HTML/JS thuần để chị trải nghiệm nhanh. Một CMS thật (như WordPress) cần backend đầy đủ để quản trị mọi nội dung.
+                    </p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Cách kiểm tra demo hoạt động</h2>
+                </div>
+                <div class="panel-body">
+                    <ol style="margin-left: 20px; line-height: 1.9;">
+                        <li>Vào <a href="posts.html">📝 Bài viết</a> → click "Sửa" trên 1 bài → đổi tiêu đề → bấm Lưu</li>
+                        <li>Mở <a href="../index.html" target="_blank">Trang chủ (mở tab mới)</a> → cuộn xuống mục "Tin tức nhà đền" → thấy tiêu đề mới</li>
+                        <li>Nếu KHÔNG thấy thay đổi: nhấn <kbd>Cmd+Shift+R</kbd> để tải lại không cache</li>
+                        <li><strong>Lưu ý:</strong> phải mở qua <code>http://localhost:8765</code> chứ không phải <code>file://...</code> (Safari chặn localStorage cho file://)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+    initAdminLayout('dashboard', 'Dashboard');
+
+    function refresh() {
+        const posts = Data.list('posts');
+        const events = Data.list('events');
+        const gallery = Data.list('gallery');
+        document.getElementById('stat-posts').textContent = posts.length;
+        document.getElementById('stat-events').textContent = events.length;
+        document.getElementById('stat-gallery').textContent = gallery.length;
+        document.getElementById('stat-published').textContent = posts.filter(p => p.published).length;
+
+        const tbody = document.getElementById('recent-posts');
+        const recent = [...posts].sort((a,b) => (b.date || '').localeCompare(a.date || '')).slice(0, 5);
+        if (recent.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty">Chưa có bài viết nào</td></tr>';
+        } else {
+            tbody.innerHTML = recent.map(p => `
+                <tr>
+                    <td><a href="post-edit.html?id=${p.id}">${escapeHtml(p.title)}</a></td>
+                    <td>${escapeHtml(POST_CATEGORIES[p.category] || p.category)}</td>
+                    <td>${formatDate(p.date)}</td>
+                    <td>${p.published ? '<span class="badge badge-success">Đã đăng</span>' : '<span class="badge badge-warn">Nháp</span>'}</td>
+                </tr>
+            `).join('');
+        }
+    }
+
+    async function resetData() {
+        const ok = await confirmModal({
+            title: 'Khôi phục dữ liệu mẫu?',
+            message: 'Mọi thay đổi của bạn sẽ bị xóa. Hành động không thể hoàn tác.',
+            confirmLabel: 'Khôi phục'
+        });
+        if (ok) {
+            Data.reset();
+            toast('Đã khôi phục dữ liệu mẫu');
+            refresh();
+        }
+    }
+
+    function publishNow() {
+        Data.publish();
+        toast('Đã tải file content.json. Hãy upload lên GitHub repo để website cập nhật.', 'success');
+    }
+
+    async function syncFromServer() {
+        const ok = await confirmModal({
+            title: 'Tải nội dung đang sống về?',
+            message: 'Tải xuống file content.json hiện tại trên server và ghi đè dữ liệu đang sửa trong admin. Mọi thay đổi chưa xuất bản sẽ bị mất.',
+            confirmLabel: 'Tải xuống'
+        });
+        if (!ok) return;
+        const data = await Data.loadFromServer();
+        if (data) {
+            toast('Đã tải nội dung đang sống về admin');
+            refresh();
+        } else {
+            toast('Không tải được — kiểm tra file content.json có tồn tại không', 'error');
+        }
+    }
+
+    refresh();
+</script>
+</body>
+</html>

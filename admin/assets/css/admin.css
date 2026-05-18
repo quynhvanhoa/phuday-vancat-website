@@ -49,18 +49,14 @@ a { color: var(--color-primary); text-decoration: none; }
     text-align: center;
 }
 .login-logo {
-    width: 72px;
-    height: 72px;
+    width: 84px;
+    height: 84px;
     margin: 0 auto 20px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    background: url('../../../assets/images/logo-cropped.png') center/cover no-repeat, var(--color-primary);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gold);
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 2rem;
+    border: 3px solid var(--color-gold);
+    font-size: 0;
+    color: transparent;
 }
 .login-box h1 {
     font-family: var(--font-heading);
@@ -150,16 +146,14 @@ a { color: var(--color-primary); text-decoration: none; }
     gap: 12px;
 }
 .sidebar-logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    width: 44px;
+    height: 44px;
+    background: url('../../../assets/images/logo-cropped.png') center/cover no-repeat, var(--color-primary);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gold);
-    font-family: var(--font-heading);
-    font-weight: bold;
+    border: 2px solid var(--color-gold);
+    flex-shrink: 0;
+    font-size: 0;
+    color: transparent;
 }
 .sidebar-logo-text {
     font-family: var(--font-heading);

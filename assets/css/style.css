@@ -120,10 +120,12 @@ p { margin-bottom: 1rem; }
 }
 .nav a {
     color: var(--color-text);
-    padding: 8px 14px;
+    padding: 8px 12px;
     border-radius: 4px;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
 }
 .nav a:hover, .nav a.active {
     background: var(--color-primary);
@@ -415,7 +417,10 @@ p { margin-bottom: 1rem; }
 }
 .article h2 { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--color-border); }
 .article h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
-.article p { font-size: 1.05rem; }
+.article p { font-size: 1.05rem; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.article p:first-letter { /* khoảng cách dòng đầu tiên có thể canh sau nếu cần */ }
+.article ul, .article ol { text-align: justify; }
+.article blockquote { text-align: justify; }
 .article img { margin: 24px 0; border-radius: 4px; }
 .figure {
     margin: 32px 0;

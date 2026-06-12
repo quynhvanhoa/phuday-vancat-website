@@ -4,8 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bài viết — Phủ Dầy Vân Cát</title>
+<meta name="description" content="Bài viết, tin tức về Phủ Dầy Vân Cát.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .post-meta { color: var(--color-text-light); font-size: 0.95rem; margin-bottom: 24px; }
+  .post-cat { display: inline-block; background: var(--color-primary); color: #fff; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-right: 12px; }
+  .post-body img { max-width: 100%; height: auto; display: block; margin: 24px auto; border-radius: 8px; }
+  .post-body h2, .post-body h3 { margin-top: 32px; }
+  .post-body blockquote { border-left: 4px solid var(--color-gold); padding-left: 16px; margin: 24px 0; color: var(--color-text-light); font-style: italic; }
+  .back-link { display: inline-block; margin-top: 48px; color: var(--color-primary); text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
 
@@ -29,27 +39,18 @@
             <a href="tin-tuc.html" class="active">Tin tức</a>
             <a href="lien-he.html">Liên hệ</a>
             <span class="lang-switch">
-                <a href="bai-viet.html" class="active">VI</a>
-                <a href="en/post.html">EN</a>
+                <a href="tin-tuc.html" class="active">VI</a>
+                <a href="en/news.html">EN</a>
             </span>
         </nav>
     </div>
 </header>
 
-<section class="page-banner">
-    <h1 id="post-title">Đang tải...</h1>
-    <div class="breadcrumb"><a href="index.html">Trang chủ</a> / <a href="tin-tuc.html">Tin tức</a> / <span id="bc-title">...</span></div>
-</section>
-
 <section class="section">
-    <div class="container" style="max-width: 800px;">
-        <article class="article" id="post-container">
-            <div style="text-align:center; padding: 40px; color: var(--color-text-light);">Đang tải bài viết...</div>
+    <div class="container">
+        <article class="article" style="max-width: 800px; margin: 0 auto;" id="post-container">
+            <p style="text-align:center; color:#888; padding:48px 0;">Đang tải bài viết...</p>
         </article>
-
-        <div style="margin-top: 32px; text-align: center;">
-            <a href="tin-tuc.html" class="btn">← Quay lại danh sách tin tức</a>
-        </div>
     </div>
 </section>
 
@@ -66,83 +67,87 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
-<script>
-(function() {
-    const STORAGE_KEY = 'phuday_data_v1';
-    const CAT = { 'su-kien': 'Sự kiện', 'le-hoi': 'Lễ hội', 'hoat-dong': 'Hoạt động xã hội', 'chuyen-de': 'Chuyên đề', 'thong-bao': 'Thông báo' };
-
-    function escapeHtml(s) {
-        if (s == null) return '';
-        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-    function formatDate(iso) {
-        if (!iso) return '';
-        const [y, m, d] = iso.split('-');
-        return `${d}/${m}/${y}`;
-    }
-
-    const id = parseInt(new URLSearchParams(window.location.search).get('id'));
-    let data;
-    try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch {}
-
-    const container = document.getElementById('post-container');
-    const titleEl = document.getElementById('post-title');
-    const bcEl = document.getElementById('bc-title');
-
-    if (!data || !data.posts) {
-        container.innerHTML = `
-            <div style="text-align:center; padding: 40px;">
-                <p style="color: var(--color-text-light); margin-bottom: 16px;">Chưa có dữ liệu bài viết. Vui lòng vào trang chủ một lần để khởi tạo dữ liệu mẫu.</p>
-                <a href="index.html" class="btn">Về trang chủ</a>
-            </div>
-        `;
-        titleEl.textContent = 'Không tải được bài viết';
-        bcEl.textContent = '—';
-        return;
-    }
-
-    const post = data.posts.find(p => p.id === id);
-
-    if (!post) {
-        container.innerHTML = `
-            <div style="text-align:center; padding: 40px;">
-                <p style="color: var(--color-text-light); margin-bottom: 16px;">Không tìm thấy bài viết với mã <code>id=${id}</code>.</p>
-                <a href="tin-tuc.html" class="btn">Xem danh sách bài viết</a>
-            </div>
-        `;
-        titleEl.textContent = 'Không tìm thấy bài viết';
-        bcEl.textContent = 'Không tồn tại';
-        return;
-    }
-
-    if (post.published === false) {
-        container.innerHTML = `
-            <div style="text-align:center; padding: 40px;">
-                <p style="color: var(--color-text-light);">Bài viết này hiện đang là <strong>bản nháp</strong>, chưa được xuất bản công khai.</p>
-            </div>
-        `;
-        titleEl.textContent = 'Bài viết chưa xuất bản';
-        bcEl.textContent = 'Nháp';
-        return;
-    }
-
-    document.title = post.title + ' — Phủ Dầy Vân Cát';
-    titleEl.textContent = post.title;
-    bcEl.textContent = post.title;
-
-    const contentHtml = escapeHtml(post.content || post.excerpt || '')
-        .split(/\n\n+/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-
-    container.innerHTML = `
-        <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border); display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
-            <span style="color: var(--color-gold); font-weight: 600;">📅 ${formatDate(post.date)}</span>
-            <span style="background: rgba(139, 0, 0, 0.1); color: var(--color-primary); padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">${escapeHtml(CAT[post.category] || post.category || 'Tin tức')}</span>
-        </div>
-        ${post.excerpt ? `<p style="font-size: 1.15rem; font-style: italic; color: var(--color-text-light); margin-bottom: 24px;">${escapeHtml(post.excerpt)}</p>` : ''}
-        ${contentHtml}
-    `;
-})();
-</script>
 <script src="assets/js/public-content.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(function () {
+  var REPO = 'quynhvanhoa/phuday-vancat-website'
+  var POSTS_PATH = 'content/posts'
+
+  var CAT_LABEL = {
+    'su-kien': 'Sự kiện',
+    'le-hoi': 'Lễ hội',
+    'xa-hoi': 'Hoạt động xã hội',
+    'chuyen-de': 'Chuyên đề'
+  }
+
+  function parseFrontmatter(text) {
+    var m = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n?([\s\S]*)$/)
+    if (!m) return { data: {}, body: text }
+    var data = {}
+    m[1].split('\n').forEach(function (line) {
+      var idx = line.indexOf(':')
+      if (idx === -1) return
+      var key = line.slice(0, idx).trim()
+      var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '')
+      data[key] = val
+    })
+    return { data: data, body: m[2] }
+  }
+
+  function formatDate(iso) {
+    try {
+      var d = new Date(iso)
+      if (isNaN(d)) return iso
+      return ('0' + d.getDate()).slice(-2) + ' · ' + ('0' + (d.getMonth() + 1)).slice(-2) + ' · ' + d.getFullYear()
+    } catch (e) { return iso }
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  }
+
+  function showError(msg) {
+    document.getElementById('post-container').innerHTML =
+      '<p style="text-align:center;color:#c00;padding:48px 0;">' + esc(msg) + '</p>' +
+      '<p style="text-align:center;"><a href="tin-tuc.html" class="back-link">← Quay lại danh sách tin tức</a></p>'
+  }
+
+  async function loadPost() {
+    var slug = new URLSearchParams(location.search).get('slug')
+    if (!slug) { showError('Không tìm thấy bài viết'); return }
+
+    var url = 'https://raw.githubusercontent.com/' + REPO + '/main/' + POSTS_PATH + '/' + encodeURIComponent(slug) + '.md'
+    try {
+      var res = await fetch(url)
+      if (!res.ok) throw new Error('HTTP ' + res.status)
+      var text = await res.text()
+      var parsed = parseFrontmatter(text)
+      var data = parsed.data
+
+      document.title = (data.title || 'Bài viết') + ' — Phủ Dầy Vân Cát'
+
+      var bodyHtml = window.marked ? marked.parse(parsed.body) : ('<pre>' + esc(parsed.body) + '</pre>')
+
+      var cat = CAT_LABEL[data.category] || data.category || ''
+
+      document.getElementById('post-container').innerHTML =
+        '<div class="post-meta">' +
+        (cat ? '<span class="post-cat">' + esc(cat) + '</span>' : '') +
+        (data.date ? '<span>' + formatDate(data.date) + '</span>' : '') +
+        '</div>' +
+        '<h1 style="font-family:\'Playfair Display\',serif; margin-bottom: 16px;">' + esc(data.title || '') + '</h1>' +
+        '<div class="post-body">' + bodyHtml + '</div>' +
+        '<p><a href="tin-tuc.html" class="back-link">← Quay lại danh sách tin tức</a></p>'
+
+    } catch (err) {
+      console.error(err)
+      showError('Không tải được bài viết. Vui lòng thử lại sau.')
+    }
+  }
+
+  loadPost()
+})()
+</script>
 </body>
 </html>

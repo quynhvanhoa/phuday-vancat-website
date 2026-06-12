@@ -52,65 +52,8 @@
             <button class="tour-stop">Chuyên đề</button>
         </div>
 
-        <div class="news-grid">
-            <article class="news-item">
-                <div class="news-image"></div>
-                <div class="news-body">
-                    <div class="news-date">18 · 05 · 2026</div>
-                    <h3>Khánh thành công trình trùng tu Cung Đệ Tam</h3>
-                    <p>Sau hơn một năm trùng tu, Cung Đệ Tam được khánh thành đúng vào dịp Tiệc Mẫu tháng Ba, mở ra giai đoạn mới gìn giữ di sản.</p>
-                    <a href="#" class="card-link">Đọc tiếp →</a>
-                </div>
-            </article>
-            <article class="news-item">
-                <div class="news-image"></div>
-                <div class="news-body">
-                    <div class="news-date">10 · 05 · 2026</div>
-                    <h3>Hội thi hát văn truyền thống Phủ Dầy 2026</h3>
-                    <p>Hội thi quy tụ các cung văn, thanh đồng từ khắp các tỉnh thành về dâng kính Mẫu, tôn vinh nghệ thuật hát văn.</p>
-                    <a href="#" class="card-link">Đọc tiếp →</a>
-                </div>
-            </article>
-            <article class="news-item">
-                <div class="news-image"></div>
-                <div class="news-body">
-                    <div class="news-date">03 · 05 · 2026</div>
-                    <h3>Lễ rước Mẫu — Truyền thống nghìn năm</h3>
-                    <p>Đoàn rước Mẫu qua các phủ chính tại quần thể Phủ Dầy thu hút hàng vạn người dân hành hương.</p>
-                    <a href="#" class="card-link">Đọc tiếp →</a>
-                </div>
-            </article>
-            <article class="news-item">
-                <div class="news-image"></div>
-                <div class="news-body">
-                    <div class="news-date">25 · 04 · 2026</div>
-                    <h3>Trao 100 suất quà cho gia đình khó khăn</h3>
-                    <p>Hoạt động từ thiện do nhà phủ và các tín hữu tổ chức nhân dịp đầu tháng Tư âm lịch.</p>
-                    <a href="#" class="card-link">Đọc tiếp →</a>
-                </div>
-            </article>
-            <article class="news-item">
-                <div class="news-image"></div>
-                <div class="news-body">
-                    <div class="news-date">15 · 04 · 2026</div>
-                    <h3>Triển lãm ảnh "Phủ Dầy qua bốn mùa"</h3>
-                    <p>Triển lãm tập hợp những bức ảnh đẹp nhất về Phủ Dầy Vân Cát qua các mùa trong năm.</p>
-                    <a href="#" class="card-link">Đọc tiếp →</a>
-                </div>
-            </article>
-            <article class="news-item">
-                <div class="news-image"></div>
-                <div class="news-body">
-                    <div class="news-date">08 · 04 · 2026</div>
-                    <h3>Bài viết chuyên đề: Mẫu Liễu Hạnh trong văn học</h3>
-                    <p>Phân tích hình tượng Mẫu Liễu Hạnh trong văn học dân gian và văn chương bác học Việt Nam.</p>
-                    <a href="#" class="card-link">Đọc tiếp →</a>
-                </div>
-            </article>
-        </div>
-
-        <div style="text-align:center; margin-top:48px;">
-            <button class="btn">Tải thêm bài viết</button>
+        <div class="news-grid" id="news-grid">
+            <p style="text-align:center;color:#888;padding:48px 0;">Đang tải bài viết...</p>
         </div>
     </div>
 </section>
@@ -129,5 +72,128 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/public-content.js"></script>
+<script>
+(function () {
+  var REPO = 'quynhvanhoa/phuday-vancat-website'
+  var POSTS_PATH = 'website/content/posts'
+  var CACHE_KEY = 'phuday_posts_v1'
+  var CACHE_TTL = 5 * 60 * 1000 // 5 phút
+
+  var CAT_LABEL = {
+    'su-kien': 'Sự kiện',
+    'le-hoi': 'Lễ hội',
+    'xa-hoi': 'Hoạt động xã hội',
+    'chuyen-de': 'Chuyên đề'
+  }
+
+  function parseFrontmatter(text) {
+    var m = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n?([\s\S]*)$/)
+    if (!m) return { data: {}, body: text }
+    var data = {}
+    m[1].split('\n').forEach(function (line) {
+      var idx = line.indexOf(':')
+      if (idx === -1) return
+      var key = line.slice(0, idx).trim()
+      var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '')
+      data[key] = val
+    })
+    return { data: data, body: m[2] }
+  }
+
+  function formatDate(iso) {
+    try {
+      var d = new Date(iso)
+      if (isNaN(d)) return iso
+      return ('0' + d.getDate()).slice(-2) + ' · ' + ('0' + (d.getMonth() + 1)).slice(-2) + ' · ' + d.getFullYear()
+    } catch (e) { return iso }
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  }
+
+  function renderPosts(posts) {
+    var grid = document.getElementById('news-grid')
+    if (!posts.length) {
+      grid.innerHTML = '<p style="text-align:center;color:#888;padding:48px 0;">Chưa có bài viết nào.</p>'
+      return
+    }
+    grid.innerHTML = posts.map(function (p) {
+      var img = p.thumbnail
+        ? '<div class="news-image" style="background-image:url(\'' + esc(p.thumbnail) + '\');background-size:cover;background-position:center;"></div>'
+        : '<div class="news-image"></div>'
+      var excerpt = p.excerpt || p.body.replace(/#{1,6}\s[^\n]+/g, '').replace(/[*_`\[\]!]/g, '').trim().slice(0, 130) + '…'
+      return '<article class="news-item" data-cat="' + esc(p.category) + '">' +
+        img +
+        '<div class="news-body">' +
+        (p.date ? '<div class="news-date">' + formatDate(p.date) + '</div>' : '') +
+        '<h3>' + esc(p.title || '(Không có tiêu đề)') + '</h3>' +
+        '<p>' + esc(excerpt) + '</p>' +
+        '</div></article>'
+    }).join('')
+  }
+
+  function initFilter() {
+    document.querySelectorAll('.tour-stop').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.tour-stop').forEach(function (b) { b.classList.remove('active') })
+        btn.classList.add('active')
+        var label = btn.textContent.trim()
+        document.querySelectorAll('#news-grid .news-item').forEach(function (item) {
+          if (label === 'Tất cả') { item.style.display = '' ; return }
+          var catLabel = CAT_LABEL[item.dataset.cat] || item.dataset.cat
+          item.style.display = (catLabel === label) ? '' : 'none'
+        })
+      })
+    })
+  }
+
+  async function loadPosts() {
+    var grid = document.getElementById('news-grid')
+
+    // Check cache
+    try {
+      var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null')
+      if (cached && (Date.now() - cached.time < CACHE_TTL)) {
+        renderPosts(cached.posts)
+        initFilter()
+        return
+      }
+    } catch (e) {}
+
+    try {
+      var res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + POSTS_PATH, {
+        headers: { Accept: 'application/vnd.github.v3+json' }
+      })
+      if (res.status === 404) { renderPosts([]); initFilter(); return }
+      if (!res.ok) throw new Error('HTTP ' + res.status)
+
+      var files = await res.json()
+      var mdFiles = files.filter(function (f) { return f.name.endsWith('.md') })
+
+      var posts = await Promise.all(mdFiles.map(async function (f) {
+        var r = await fetch(f.download_url)
+        var text = await r.text()
+        var parsed = parseFrontmatter(text)
+        return Object.assign({ body: parsed.body, filename: f.name }, parsed.data)
+      }))
+
+      posts.sort(function (a, b) {
+        return new Date(b.date || 0) - new Date(a.date || 0)
+      })
+
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ time: Date.now(), posts: posts }))
+      renderPosts(posts)
+      initFilter()
+
+    } catch (err) {
+      console.error(err)
+      grid.innerHTML = '<p style="text-align:center;color:#c00;padding:48px 0;">Không tải được bài viết. Vui lòng thử lại sau.</p>'
+    }
+  }
+
+  loadPosts()
+})()
+</script>
 </body>
 </html>

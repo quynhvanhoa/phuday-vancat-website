@@ -422,6 +422,44 @@ p { margin-bottom: 1rem; }
 .article ul, .article ol { text-align: justify; }
 .article blockquote { text-align: justify; }
 .article img { margin: 24px 0; border-radius: 4px; }
+
+/* ============== POST DETAIL (bai-viet.html) ============== */
+.article h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.3; }
+.post-body { font-size: 1rem; line-height: 1.75; }
+.post-body p { font-size: 1rem; margin-bottom: 16px; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.post-body h2 { font-size: 1.5rem; margin-top: 28px; margin-bottom: 12px; }
+.post-body h3 { font-size: 1.25rem; margin-top: 24px; margin-bottom: 10px; }
+.post-body ul, .post-body ol { font-size: 1rem; margin: 12px 0 12px 24px; }
+.post-body li { margin-bottom: 6px; }
+@media (max-width: 720px) {
+    .article { padding: 24px; }
+    .article h1 { font-size: 1.4rem; }
+}
+
+/* ============== NEWS LIST (rows under top grid) ============== */
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+}
+.news-list .news-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    align-items: stretch;
+}
+.news-list .news-image {
+    height: 140px;
+    border-radius: 8px 0 0 8px;
+}
+.news-list .news-body { padding: 16px 20px; }
+.news-list .news-body h3 { font-size: 1.05rem; }
+.news-list .news-body p { font-size: 0.92rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 640px) {
+    .news-list .news-item { grid-template-columns: 1fr; }
+    .news-list .news-image { height: 160px; border-radius: 8px 8px 0 0; }
+}
 .figure {
     margin: 32px 0;
     text-align: center;

@@ -37,30 +37,38 @@
     return posts
   }
 
+  function renderCard(p) {
+    var slug = p.filename.replace(/\.md$/, '')
+    var href = 'bai-viet.html?slug=' + encodeURIComponent(slug)
+    var img = p.thumbnail
+      ? '<a href="' + href + '" class="news-image" style="background-image:url(\'' + esc(p.thumbnail) + '\');background-size:cover;background-position:center;display:block;"></a>'
+      : '<a href="' + href + '" class="news-image" style="display:block;"></a>'
+    var excerpt = p.excerpt || p.body.replace(/#{1,6}\s[^\n]+/g, '').replace(/[*_`\[\]!]/g, '').trim().slice(0, 130) + '…'
+    return '<article class="news-item">' +
+      img +
+      '<div class="news-body">' +
+      (p.date ? '<div class="news-date">' + formatDate(p.date) + '</div>' : '') +
+      '<h3><a href="' + href + '" style="color:inherit;text-decoration:none;">' + esc(p.title || '(Không có tiêu đề)') + '</a></h3>' +
+      '<p>' + esc(excerpt) + '</p>' +
+      '<a href="' + href + '" class="card-link">Đọc tiếp →</a>' +
+      '</div></article>'
+  }
+
   function renderPosts(posts) {
     var grid = document.getElementById('news-grid')
+    var list = document.getElementById('news-list')
     if (!grid) return
     posts = applyFilter(posts)
     if (!posts.length) {
       grid.innerHTML = '<p style="text-align:center;color:#888;padding:48px 0;">Chưa có bài viết nào.</p>'
+      if (list) list.innerHTML = ''
       return
     }
-    grid.innerHTML = posts.map(function (p) {
-      var slug = p.filename.replace(/\.md$/, '')
-      var href = 'bai-viet.html?slug=' + encodeURIComponent(slug)
-      var img = p.thumbnail
-        ? '<a href="' + href + '" class="news-image" style="background-image:url(\'' + esc(p.thumbnail) + '\');background-size:cover;background-position:center;display:block;"></a>'
-        : '<a href="' + href + '" class="news-image" style="display:block;"></a>'
-      var excerpt = p.excerpt || p.body.replace(/#{1,6}\s[^\n]+/g, '').replace(/[*_`\[\]!]/g, '').trim().slice(0, 130) + '…'
-      return '<article class="news-item">' +
-        img +
-        '<div class="news-body">' +
-        (p.date ? '<div class="news-date">' + formatDate(p.date) + '</div>' : '') +
-        '<h3><a href="' + href + '" style="color:inherit;text-decoration:none;">' + esc(p.title || '(Không có tiêu đề)') + '</a></h3>' +
-        '<p>' + esc(excerpt) + '</p>' +
-        '<a href="' + href + '" class="card-link">Đọc tiếp →</a>' +
-        '</div></article>'
-    }).join('')
+    var SPLIT = 5
+    var topPosts = posts.slice(0, SPLIT)
+    var restPosts = posts.slice(SPLIT)
+    grid.innerHTML = topPosts.map(renderCard).join('')
+    if (list) list.innerHTML = restPosts.map(renderCard).join('')
   }
 
   async function loadPosts() {

@@ -8,14 +8,14 @@ backend:
 locale: vi
 site_url: https://quynhvanhoa.github.io/phuday-vancat-website/
 
-media_folder: website/assets/images/uploads
-public_folder: assets/images/uploads
+media_folder: assets/images/uploads
+public_folder: /phuday-vancat-website/assets/images/uploads
 
 collections:
   - name: posts
     label: Bài viết
     label_singular: Bài viết
-    folder: website/content/posts
+    folder: content/posts
     create: true
     slug: "{{year}}{{month}}{{day}}-{{slug}}"
     summary: "{{title}} ({{date}})"

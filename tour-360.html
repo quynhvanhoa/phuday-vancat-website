@@ -25,9 +25,9 @@
             <a href="gioi-thieu.html">Giới thiệu</a>
             <a href="tin-nguong-tho-mau.html">Tín ngưỡng thờ Mẫu</a>
             <a href="tour-360.html" class="active">Tour 360°</a>
-            <a href="le-hoi.html">Lễ hội</a>
-            <a href="thu-vien.html">Thư viện</a>
+            <a href="le-hoi.html">Lịch tiệc Mẫu</a>
             <a href="tin-tuc.html">Tin tức</a>
+            <a href="tin-chuyen-de.html">Tin chuyên đề</a>
             <a href="lien-he.html">Liên hệ</a>
             <span class="lang-switch">
                 <a href="tour-360.html" class="active">VI</a>
@@ -37,65 +37,27 @@
     </div>
 </header>
 
-<section class="page-banner">
-    <h1>Tour 360° — Khám phá Phủ Dầy Vân Cát</h1>
-    <div class="breadcrumb"><a href="index.html">Trang chủ</a> / Tour 360°</div>
-</section>
-
 <section class="section">
     <div class="container">
-        <p class="section-subtitle">Hãy lựa chọn một khu vực bên dưới để bắt đầu hành trình tham quan. Trong khung tour, dùng chuột (hoặc chạm) để xoay 360°, click vào các điểm sáng để xem chi tiết.</p>
+        <h2 class="section-title">Tham quan trực tuyến Phủ Dầy Vân Cát</h2>
+        <p class="section-subtitle">Dùng chuột (hoặc chạm trên điện thoại) để xoay 360°. Bấm nút mở rộng góc phải dưới để xem toàn màn hình.</p>
 
-        <div class="tour-frame">
-            <div class="tour-placeholder">
-                <div class="tour-placeholder-icon">⊕</div>
-                <h3 style="color: var(--color-gold-light);">Khung tour 360°</h3>
-                <p style="opacity: 0.85;">Vị trí hiện tại: <strong id="tour-current-label">Cổng Tam Quan</strong></p>
-                <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 16px;">[Khi triển khai chính thức, đây sẽ là iframe nhúng từ Kuula / Marzipano / 3DVista]</p>
-            </div>
+        <div style="position: relative; padding-bottom: 60%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); margin: 32px 0;">
+            <iframe
+                src="https://daothinhuquynh-png.github.io/phudayvancat360"
+                title="Tour 360° Phủ Dầy Vân Cát"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
 
-        <div class="tour-controls">
-            <button>⟵ Khu vực trước</button>
-            <button>🔊 Bật/Tắt âm thanh</button>
-            <button>📍 Mở bản đồ</button>
-            <button>ⓘ Hướng dẫn</button>
-            <button>Khu vực tiếp ⟶</button>
-        </div>
-
-        <div class="tour-map">
-            <h3>Sơ đồ tham quan</h3>
-            <p style="color: var(--color-text-light); font-size: 0.95rem;">Chọn một khu vực để xem tour 360° tại đó:</p>
-            <div class="tour-stops">
-                <div class="tour-stop active">Cổng Tam Quan</div>
-                <div class="tour-stop">Sân trước</div>
-                <div class="tour-stop">Tiền tế</div>
-                <div class="tour-stop">Trung từ (Cung Đệ Tam)</div>
-                <div class="tour-stop">Cung Đệ Nhị</div>
-                <div class="tour-stop">Cung Cấm (Hậu cung)</div>
-                <div class="tour-stop">Lầu Cô</div>
-                <div class="tour-stop">Lầu Cậu</div>
-                <div class="tour-stop">Vườn — Khuôn viên</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-alt">
-    <div class="container">
-        <h2 class="section-title">Về khu vực đang xem</h2>
-        <div class="article" style="max-width: 800px; margin: 0 auto;">
-            <h3>Cổng Tam Quan</h3>
-            <p>Cổng Tam Quan là điểm khởi đầu thiêng liêng dẫn vào không gian phủ. Mái cong, đầu đao chạm trổ tinh xảo cùng các họa tiết rồng phượng thể hiện đỉnh cao của nghệ thuật kiến trúc truyền thống.</p>
-            <p>Hai bên cổng là hai câu đối Hán–Nôm cổ kính, mang nội dung ca ngợi công đức của Thánh Mẫu Liễu Hạnh và lời nguyện cầu cho quốc thái dân an.</p>
-
-            <div class="figure">
-                <div class="figure-image">[Ảnh chi tiết Cổng Tam Quan]</div>
-                <div class="figure-caption">Cổng Tam Quan Phủ Dầy Vân Cát nhìn từ ngoài vào</div>
-            </div>
-
-            <p>Mời quý vị click vào các điểm sáng (hotspot) trong tour 360° để khám phá chi tiết các họa tiết, hiện vật và câu chuyện gắn liền.</p>
-        </div>
+        <p style="text-align: center; margin-top: 24px;">
+            <a href="https://daothinhuquynh-png.github.io/phudayvancat360" target="_blank" rel="noopener" class="btn btn-outline">
+                Mở tour 360° trong tab mới ↗
+            </a>
+        </p>
     </div>
 </section>
 
@@ -103,8 +65,7 @@
     <div class="container">
         <div class="footer-grid">
             <div><h4>Phủ Dầy Vân Cát</h4><p style="color:rgba(255,255,255,0.7); font-size:0.95rem;">Nơi Mẫu Liễu Hạnh giáng sinh lần thứ hai.</p></div>
-            <div><h4>Khám phá</h4><ul><li><a href="gioi-thieu.html">Giới thiệu</a></li><li><a href="tin-nguong-tho-mau.html">Tín ngưỡng thờ Mẫu</a></li><li><a href="tour-360.html">Tour 360°</a></li><li><a href="le-hoi.html">Lễ hội</a></li></ul></div>
-            <div><h4>Tài nguyên</h4><ul><li><a href="thu-vien.html">Thư viện</a></li><li><a href="tin-tuc.html">Tin tức</a></li><li><a href="lien-he.html">Liên hệ</a></li></ul></div>
+            <div><h4>Khám phá</h4><ul><li><a href="gioi-thieu.html">Giới thiệu</a></li><li><a href="tin-nguong-tho-mau.html">Tín ngưỡng thờ Mẫu</a></li><li><a href="tour-360.html">Tour 360°</a></li><li><a href="le-hoi.html">Lịch tiệc Mẫu</a></li></ul></div><div><h4>Tài nguyên</h4><ul><li><a href="tin-tuc.html">Tin tức</a></li><li><a href="tin-chuyen-de.html">Tin chuyên đề</a></li><li><a href="lien-he.html">Liên hệ</a></li></ul></div>
             <div><h4>Ngôn ngữ</h4><ul><li><a href="index.html">Tiếng Việt</a></li><li><a href="en/index.html">English</a></li></ul></div>
         </div>
         <div class="footer-bottom">© 2026 Phủ Dầy Vân Cát · Mọi quyền được bảo lưu</div>

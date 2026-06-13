@@ -12,6 +12,22 @@ media_folder: assets/images/uploads
 public_folder: /phuday-vancat-website/assets/images/uploads
 
 collections:
+  - name: pages
+    label: Các trang cố định
+    files:
+      - file: content/pages/gioi-thieu.md
+        label: Trang Giới thiệu
+        name: gioi-thieu
+        fields:
+          - { label: Tiêu đề trang, name: title, widget: string }
+          - { label: Nội dung, name: body, widget: markdown }
+      - file: content/pages/tin-nguong-tho-mau.md
+        label: Trang Tín ngưỡng thờ Mẫu
+        name: tin-nguong-tho-mau
+        fields:
+          - { label: Tiêu đề trang, name: title, widget: string }
+          - { label: Nội dung, name: body, widget: markdown }
+
   - name: posts
     label: Bài viết
     label_singular: Bài viết

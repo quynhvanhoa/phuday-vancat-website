@@ -31,12 +31,14 @@
 
   function buildToc() {
     if (!tocList) return
-    var headings = container.querySelectorAll('h2')
+    var headings = container.querySelectorAll('h2, h3, h4')
     if (!headings.length) { if (tocList.parentElement) tocList.parentElement.style.display = 'none'; return }
     var html = ''
     headings.forEach(function (h) {
       if (!h.id) h.id = slugify(h.textContent)
-      html += '<li><a href="#' + h.id + '">' + h.textContent + '</a></li>'
+      var level = parseInt(h.tagName.substring(1), 10)
+      var indent = (level - 2) * 14
+      html += '<li style="padding-left:' + indent + 'px"><a href="#' + h.id + '">' + h.textContent + '</a></li>'
     })
     tocList.innerHTML = html
   }

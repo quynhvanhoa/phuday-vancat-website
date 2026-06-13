@@ -49,5 +49,3 @@ Sau 1954, chính quyền miền Bắc coi hầu đồng là "mê tín dị đoan
 Sau Đổi Mới (1986), đặc biệt từ 1987 khi chính quyền nới lỏng kiểm soát tôn giáo, tín ngưỡng thờ Mẫu bùng nổ phục hồi. Đền phủ được tu bổ, lên đồng công khai trở lại, lễ hội Phủ Dầy thu hút hàng trăm ngàn người mỗi năm. Đỉnh cao là ngày **01/12/2016**, UNESCO ghi danh **"Thực hành Tín ngưỡng Thờ Mẫu Tam phủ của người Việt"** vào Danh sách Di sản Văn hoá Phi vật thể Đại diện của Nhân loại — khẳng định giá trị phổ quát của tín ngưỡng này trước cộng đồng quốc tế.
 
 Kirsten Endres (Viện Max Planck Nhân học Xã hội), trong _Performing the Divine: Mediums, Markets and Modernity in Urban Vietnam_ (NIAS Press, 2011), đã phân tích sâu sắc quá trình phục hưng này: tín ngưỡng Tứ phủ được "tái sinh" thành "Đạo Mẫu" nhờ nỗ lực của các nhà nghiên cứu văn hoá dân gian Việt Nam — những người đã tái định nghĩa nó từ "hầu thánh" (phục vụ thần linh) thành một **tôn giáo** có giáo lý, có tổ chức, có giá trị văn hoá.
-
-TS.Nguyễn Thùy

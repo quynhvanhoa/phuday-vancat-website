@@ -27,6 +27,18 @@ collections:
         fields:
           - { label: Tiêu đề trang, name: title, widget: string }
           - { label: Nội dung, name: body, widget: markdown }
+      - file: content/pages/le-hoi.md
+        label: Trang Lịch tiệc Mẫu
+        name: le-hoi
+        fields:
+          - { label: Tiêu đề trang, name: title, widget: string }
+          - { label: Nội dung, name: body, widget: markdown }
+      - file: content/pages/tour-360.md
+        label: Trang Tour 360°
+        name: tour-360
+        fields:
+          - { label: Tiêu đề trang, name: title, widget: string }
+          - { label: Nội dung, name: body, widget: markdown }
 
   - name: posts
     label: Bài viết

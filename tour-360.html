@@ -39,25 +39,28 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="section-title">Tham quan trực tuyến Phủ Dầy Vân Cát</h2>
-        <p class="section-subtitle">Dùng chuột (hoặc chạm trên điện thoại) để xoay 360°. Bấm nút mở rộng góc phải dưới để xem toàn màn hình.</p>
-
-        <div style="position: relative; padding-bottom: 60%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); margin: 32px 0;">
-            <iframe
-                src="https://phudayvancat.vn/"
-                title="Tour 360° Phủ Dầy Vân Cát"
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+        <div id="page-content" style="max-width: 900px; margin: 0 auto 24px;">
+            <p style="text-align:center;color:#888;padding:32px 0;">Đang tải nội dung...</p>
         </div>
 
-        <p style="text-align: center; margin-top: 24px;">
-            <a href="https://phudayvancat.vn/" target="_blank" rel="noopener" class="btn btn-outline">
-                Mở tour 360° trong tab mới ↗
-            </a>
-        </p>
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <div style="position: relative; padding-bottom: 60%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); margin: 32px 0;">
+                <iframe
+                    src="https://phudayvancat.vn/"
+                    title="Tour 360° Phủ Dầy Vân Cát"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <p style="text-align: center; margin-top: 24px;">
+                <a href="https://phudayvancat.vn/" target="_blank" rel="noopener" class="btn btn-outline">
+                    Mở tour 360° trong tab mới ↗
+                </a>
+            </p>
+        </div>
     </div>
 </section>
 
@@ -74,5 +77,8 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/public-content.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>window.PAGE_SLUG = 'tour-360';</script>
+<script src="assets/js/page-loader.js"></script>
 </body>
 </html>

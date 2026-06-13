@@ -31,7 +31,8 @@
 
   function buildToc() {
     if (!tocList) return
-    var headings = container.querySelectorAll('h2, h3, h4')
+    var headings = Array.prototype.slice.call(container.querySelectorAll('h2, h3, h4'))
+      .filter(function (h) { return !h.closest('.timeline, .mau-grid, .figure') })
     if (!headings.length) { if (tocList.parentElement) tocList.parentElement.style.display = 'none'; return }
     var html = ''
     headings.forEach(function (h) {

@@ -3,7 +3,7 @@ title: BÀI VĂN CHẦU MẪU LIỄU HẠNH
 date: 2026-06-13
 category: chuyen-de
 excerpt: Đạo thờ mẫu ở nước ta có lịch sử lâu đời, đặc biệt là tục thờ mẫu Liễu Hạnh, phổ biến ở nhiều nơi. Trong các kỳ lễ hội, dân gian thường sáng tác ra các bài văn chầu để tán thán công đức của Mẫu Liễu. Các nhà nghiên cứu văn hóa đã sưu tập được hàng chục bài văn chầu, chủ yếu là viết bằng thể lục bát hoặc song thất lục bát. Nội dung các bài văn chầu này dài ngắn khác nhau, có bài dài đến hàng trăm câu, có bài chỉ có 12 câu.
-thumbnail: ''
+thumbnail: /phuday-vancat-website/assets/images/uploads/689021848_872671192532212_4010903528356871930_n.jpg
 ---
 
 Gần đây chúng tôi tìm thấy trong sách Tiên phả dịch lục ở Viện Nghiên cứu Hán Nôm, ký hiệu AB.289, có một bài văn hầu Mẫu Liễu. Tác giả sách là Giá Sơn Kiều Oánh Mậu(1), đỗ Phó bảng triều Nguyễn. Bài văn chầu viết bằng chữ Nôm theo thể song thất lục bát gồm 72 câu.

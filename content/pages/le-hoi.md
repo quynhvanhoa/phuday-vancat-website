@@ -4,7 +4,7 @@ title: Lịch tiệc Mẫu — Phủ Dầy Vân Cát
 
 Dưới đây là các ngày tiệc của các vị thánh trong **Tam Tòa Thánh Mẫu**, **Ngũ vị Tôn Quan**, **Tứ phủ Chầu Bà**, **Tứ Phủ Ông Hoàng**, **Tứ Phủ Thánh Cô**, **Tứ Phủ Thánh Cậu** và các vị thánh được thờ theo Tục thờ Đạo Mẫu.
 
-*Các ngày được tính theo âm lịch.*
+_Các ngày được tính theo âm lịch._
 
 ## Tháng Giêng
 
@@ -33,7 +33,7 @@ Dưới đây là các ngày tiệc của các vị thánh trong **Tam Tòa Thá
 - **Ngày 15–16/2:** Tiệc Chúa Nguyệt Hồ
 - **Ngày 17/2:** Tiệc Cậu Đệ Nhất
 - **Ngày 20/2:** Tiệc Mẫu Đệ Nhị Thượng Ngàn (Lê Mại Đại Vương, Sơn Trang Công Chúa)
-- **Ngày 21/2** *(có nơi ghi 24/2)***:** Tiệc Mẫu Sòng Sơn
+- **Ngày 21/2** _(có nơi 24/2)_**:** Tiệc Mẫu Sòng Sơn
 - **Ngày 28/2:** Tiệc Quan Hoàng Lục (An Biên Đại Tướng Quân, ngày đản sinh là 10/8)
 
 ## Tháng Ba
@@ -49,7 +49,7 @@ Dưới đây là các ngày tiệc của các vị thánh trong **Tam Tòa Thá
 
 - **Các ngày trong tháng:** Đại Lễ Nhập Hạ
 - **Ngày 01/4:** Tiệc Vương Khảo Trần Triều Thân Vương An Sinh Vương Truy Phong Khâm Minh Đại Vương
-- **Ngày 12/4** *(có nơi ghi 01/4)***:** Tiệc Chúa Thác Bờ
+- **Ngày 12/4** _(có nơi 01/4)_**:** Tiệc Chúa Thác Bờ
 - **Ngày 18/4:** Tiệc Chầu Bà Đệ Tam Thoải Phủ
 - **Ngày 19/4:** Tiệc Quan Hoàng Lục Thanh Hà
 - **Ngày 24/4:** Tiệc Trần Triều Vương Tử Đệ Nhất Hưng Vũ Đại Vương
@@ -123,7 +123,7 @@ Dưới đây là các ngày tiệc của các vị thánh trong **Tam Tòa Thá
 
 ## Tháng Mười Một
 
-- **Ngày 01/11** *(có nơi ghi 10/11)***:** Tiệc Phạm Ngũ Lão
+- **Ngày 01/11** _(có nơi 10/11)_**:** Tiệc Phạm Ngũ Lão
 - **Ngày 02/11:** Tiệc Quan Lớn Đệ Nhị (Quan Thanh Tra Giám Sát — Đền Đồi Ngang)
 - **Ngày 02/11:** Tiệc Chầu Đệ Nhị
 - **Ngày 06/11:** Tiệc Đản Nhật Vua Cha Nhạc Phủ Tản Viên Sơn Thánh
@@ -139,8 +139,8 @@ Dưới đây là các ngày tiệc của các vị thánh trong **Tam Tòa Thá
 - **Ngày 20/12:** Khánh Tiệc Vương Cô Đệ Nhị
 - **Ngày 25/12:** Tiệc Chúa Đệ Tam Lâm Thao (Chúa Ót, Chúa Chữa)
 
----
+***
 
-*Quý vị muốn biết lịch chi tiết các nghi lễ tâm linh tại Phủ, xin liên hệ trực tiếp [Thủ nhang](lien-he.html).*
+_Quý vị muốn biết lịch chi tiết các nghi lễ tâm linh tại Phủ, xin liên hệ trực tiếp_ [_Thủ nhang_](lien-he.html)_._
 
 [Theo dõi Facebook chính thức của Phủ](https://www.facebook.com/Phudayvancatnd)

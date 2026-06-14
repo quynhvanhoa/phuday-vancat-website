@@ -6,4 +6,5 @@ open_hours: Tất cả các ngày trong tuần
 email: ''
 facebook: https://www.facebook.com/Phudayvancatnd
 facebook_label: facebook.com/Phudayvancatnd
+logo_image: ''
 ---

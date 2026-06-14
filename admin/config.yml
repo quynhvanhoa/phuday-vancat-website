@@ -80,6 +80,7 @@ collections:
           - { label: Email (tùy chọn), name: email, widget: string, required: false }
           - { label: Facebook URL, name: facebook, widget: string, required: false }
           - { label: Hiển thị link Facebook (vd facebook.com/Phudayvancatnd), name: facebook_label, widget: string, required: false }
+          - { label: "Logo Phủ (ảnh tròn trên menu, để trống dùng mặc định)", name: logo_image, widget: image, required: false, hint: "Ảnh tròn nhỏ hiển thị bên trái menu, cạnh chữ Phủ Dầy Vân Cát. Khuyến nghị ảnh vuông 200x200px" }
 
   - name: posts
     label: Bài viết

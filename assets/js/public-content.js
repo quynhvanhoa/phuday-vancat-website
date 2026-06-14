@@ -37,6 +37,12 @@
         if (settings.facebook_label) a.textContent = settings.facebook_label
       })
     }
+    if (settings.logo_image) {
+      document.querySelectorAll('.logo-icon').forEach(function (el) {
+        el.style.backgroundImage = "url('" + settings.logo_image + "')"
+        el.style.backgroundColor = 'transparent'
+      })
+    }
   }
 
   async function load() {

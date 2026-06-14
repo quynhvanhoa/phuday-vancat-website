@@ -15,6 +15,15 @@ collections:
   - name: pages
     label: Các trang cố định
     files:
+      - file: content/pages/index.md
+        label: Trang chủ
+        name: index
+        fields:
+          - { label: Tiêu đề lớn (Hero H1), name: title, widget: string }
+          - { label: Câu phụ dưới tiêu đề (xuống dòng OK), name: hero_subtitle, widget: text }
+          - { label: Tiêu đề lời chào, name: welcome_title, widget: string }
+          - { label: Lời chào (nội dung), name: body, widget: markdown }
+          - { label: Người ký tên cuối lời chào, name: welcome_signature, widget: string }
       - file: content/pages/gioi-thieu.md
         label: Trang Giới thiệu
         name: gioi-thieu

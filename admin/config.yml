@@ -26,6 +26,10 @@ collections:
           - { label: Ảnh cạnh lời chào, name: welcome_image, widget: image, required: false, hint: "Ảnh thủ nhang hoặc cảnh Phủ" }
           - { label: Lời chào (nội dung), name: body, widget: markdown }
           - { label: Người ký tên cuối lời chào, name: welcome_signature, widget: string }
+          - { label: "Ảnh thẻ Tour 360° (thay icon 360°)", name: card_tour_image, widget: image, required: false }
+          - { label: "Ảnh thẻ Tín ngưỡng thờ Mẫu (thay chữ Hán 慕)", name: card_worship_image, widget: image, required: false }
+          - { label: "Ảnh thẻ Lịch tiệc Mẫu (thay chữ Hán 祭)", name: card_feast_image, widget: image, required: false }
+          - { label: "Ảnh thẻ Cung tiến công đức (thay icon ♥)", name: card_donate_image, widget: image, required: false }
       - file: content/pages/gioi-thieu.md
         label: Trang Giới thiệu
         name: gioi-thieu

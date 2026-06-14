@@ -84,6 +84,17 @@
           wImg.textContent = ''
         }
       }
+
+      ;['tour', 'worship', 'feast', 'donate'].forEach(function (key) {
+        var img = d['card_' + key + '_image']
+        if (!img) return
+        var iconEl = document.getElementById('card-icon-' + key)
+        if (!iconEl) return
+        iconEl.style.backgroundImage = 'url(\'' + img + '\')'
+        iconEl.style.backgroundSize = 'cover'
+        iconEl.style.backgroundPosition = 'center'
+        iconEl.textContent = ''
+      })
     } catch (err) { console.error(err) }
   }
 

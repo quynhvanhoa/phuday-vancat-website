@@ -8,15 +8,12 @@
   function parseFrontmatter(text) {
     var m = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n?([\s\S]*)$/)
     if (!m) return { data: {}, body: text }
-    var data = {}
-    m[1].split('\n').forEach(function (line) {
-      var idx = line.indexOf(':')
-      if (idx === -1) return
-      var key = line.slice(0, idx).trim()
-      var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '')
-      data[key] = val
-    })
-    return { data: data, body: m[2] }
+    try {
+      return { data: jsyaml.load(m[1]) || {}, body: m[2] }
+    } catch (e) {
+      console.error('YAML parse error', e)
+      return { data: {}, body: m[2] }
+    }
   }
 
   function formatDate(iso) {

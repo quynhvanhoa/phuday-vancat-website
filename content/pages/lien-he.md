@@ -1,7 +1,7 @@
 ---
 title: Liên hệ Phủ Dầy Vân Cát
-intro: Mọi câu hỏi, góp ý, đăng ký tham quan xin gửi đến nhà phủ
 contact_section_title: Đến với Phủ Dầy Vân Cát
+intro: Mọi câu hỏi, góp ý, đăng ký tham quan xin gửi đến nhà Phủ
 map_title: Bản đồ đến Phủ
 map_caption: Phủ cách Hà Nội khoảng 100 km về phía Nam, cách thành phố Ninh Bình 35 km
 donate_title: Cung tiến công đức
@@ -20,4 +20,4 @@ Quý vị muốn cung tiến công đức, xin liên hệ trực tiếp Thủ nh
 - **Đóng góp công sức:** Tham gia các hoạt động trùng tu, vệ sinh phủ trong các kỳ lễ hội.
 - **Cung tiến từ xa:** Quý vị ở xa muốn cung tiến, xin liên hệ Thủ nhang để được hướng dẫn cụ thể.
 
-*Nhà phủ trân trọng cảm ơn mọi tấm lòng và xin Mẫu ban phước lành cho quý tín hữu.*
+_Nhà hủ trân trọng cảm ơn mọi tấm lòng và xin Mẫu ban phước lành cho quý tín hữu._

@@ -66,6 +66,24 @@
         welcomeTextEl.innerHTML = inner +
           (d.welcome_signature ? '<cite>— ' + esc(d.welcome_signature) + '</cite>' : '')
       }
+
+      if (d.hero_image) {
+        var hero = document.getElementById('hero-section')
+        if (hero) {
+          hero.style.backgroundImage =
+            'linear-gradient(rgba(46,26,14,0.55), rgba(46,26,14,0.55)), url(\'' + d.hero_image + '\')'
+          hero.style.backgroundSize = 'cover'
+          hero.style.backgroundPosition = 'center'
+        }
+      }
+
+      if (d.welcome_image) {
+        var wImg = document.getElementById('welcome-image')
+        if (wImg) {
+          wImg.style.background = 'url(\'' + d.welcome_image + '\') center/cover no-repeat'
+          wImg.textContent = ''
+        }
+      }
     } catch (err) { console.error(err) }
   }
 

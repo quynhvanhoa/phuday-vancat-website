@@ -39,8 +39,8 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="section-title">Đến với Phủ Dầy Vân Cát</h2>
-        <p class="section-subtitle">Mọi câu hỏi, góp ý, đăng ký tham quan xin gửi đến nhà phủ</p>
+        <h2 class="section-title" data-page-field="contact_section_title">Đến với Phủ Dầy Vân Cát</h2>
+        <p class="section-subtitle" data-page-field="intro">Mọi câu hỏi, góp ý, đăng ký tham quan xin gửi đến nhà phủ</p>
 
         <div class="contact-grid" style="grid-template-columns: 1fr; max-width: 620px; margin: 32px auto 0;">
             <div class="contact-info">
@@ -56,29 +56,29 @@
                     <div class="contact-icon">☎</div>
                     <div>
                         <strong>Điện thoại</strong>
-                        Thủ nhang Trần Văn Cường — <span data-field="phone">0943 582 626</span>
+                        <span data-field="phone_label">Thủ nhang Trần Văn Cường</span> — <a href="tel:0943582626" style="color:inherit;text-decoration:underline;"><span data-field="phone">0943 582 626</span></a>
                     </div>
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">⏰</div>
                     <div>
                         <strong>Giờ mở cửa</strong>
-                        <span data-field="openHours">Tất cả các ngày trong tuần · 06:00 — 19:00</span>
+                        <span data-field="open_hours">Tất cả các ngày trong tuần · 06:00 — 19:00</span>
                     </div>
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">🌐</div>
                     <div>
                         <strong>Mạng xã hội</strong>
-                        <a href="https://www.facebook.com/Phudayvancatnd" target="_blank" rel="noopener">facebook.com/Phudayvancatnd</a>
+                        <a data-link="facebook" href="https://www.facebook.com/Phudayvancatnd" target="_blank" rel="noopener">facebook.com/Phudayvancatnd</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div style="max-width: 900px; margin: 48px auto 0;">
-            <h3 style="text-align: center; margin-bottom: 8px;">Bản đồ đến Phủ</h3>
-            <p style="text-align: center; color: var(--color-text-light); margin-bottom: 20px;">
+            <h3 style="text-align: center; margin-bottom: 8px;" data-page-field="map_title">Bản đồ đến Phủ</h3>
+            <p style="text-align: center; color: var(--color-text-light); margin-bottom: 20px;" data-page-field="map_caption">
                 Phủ cách Hà Nội khoảng 100 km về phía Nam, cách thành phố Ninh Bình 35 km
             </p>
             <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);">
@@ -102,25 +102,9 @@
 
 <section id="cung-tien" class="section section-alt">
     <div class="container">
-        <div class="donate-box">
-            <h2>Cung tiến công đức</h2>
-            <p>Mọi tấm lòng công đức của quý vị đều là sự đóng góp quý báu để gìn giữ, trùng tu và phát huy di sản Phủ Dầy Vân Cát cho các thế hệ mai sau. Mẫu chứng giám tấm lòng thành.</p>
-            <p style="font-size: 1rem; margin-top: 16px;">
-                Quý vị muốn cung tiến công đức, xin liên hệ trực tiếp Thủ nhang:<br>
-                <strong style="font-size: 1.1rem;">Thủ nhang Trần Văn Cường — <a href="tel:0943582626" style="color: inherit; text-decoration: underline;">0943 582 626</a></strong>
-            </p>
-        </div>
-
-        <div class="article" style="max-width: 900px; margin: 48px auto 0;">
-            <h3>Các hình thức công đức</h3>
-            <ul style="margin: 16px 0 16px 24px;">
-                <li><strong>Công đức trực tiếp:</strong> Tại hòm công đức của Phủ, có biên nhận nếu quý vị yêu cầu.</li>
-                <li><strong>Cung tiến vật phẩm:</strong> Vật liệu trùng tu, đồ thờ, hương đăng… xin liên hệ Thủ nhang trước để được hướng dẫn.</li>
-                <li><strong>Đóng góp công sức:</strong> Tham gia các hoạt động trùng tu, vệ sinh phủ trong các kỳ lễ hội.</li>
-                <li><strong>Cung tiến từ xa:</strong> Quý vị ở xa muốn cung tiến, xin liên hệ Thủ nhang để được hướng dẫn cụ thể.</li>
-            </ul>
-            <p style="font-style: italic; color: var(--color-text-light);">Nhà phủ trân trọng cảm ơn mọi tấm lòng và xin Mẫu ban phước lành cho quý tín hữu.</p>
-        </div>
+        <article class="article" id="page-content" style="max-width: 900px; margin: 0 auto;">
+            <p style="text-align:center;color:#888;padding:32px 0;">Đang tải nội dung...</p>
+        </article>
     </div>
 </section>
 
@@ -137,5 +121,8 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/public-content.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>window.PAGE_SLUG = 'lien-he';</script>
+<script src="assets/js/page-loader.js"></script>
 </body>
 </html>

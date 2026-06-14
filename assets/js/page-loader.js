@@ -7,6 +7,8 @@
   var container = document.getElementById('page-content')
   var tocList = document.getElementById('toc-list')
 
+  // page-loader runs even when there is no #page-content (e.g. lien-he uses only data-page-field).
+
   function parseFrontmatter(text) {
     var m = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n?([\s\S]*)$/)
     if (!m) return { data: {}, body: text }
@@ -51,12 +53,21 @@
       if (!res.ok) throw new Error('HTTP ' + res.status)
       var text = await res.text()
       var parsed = parseFrontmatter(text)
-      if (window.marked) {
-        container.innerHTML = marked.parse(parsed.body)
-      } else {
-        container.innerHTML = '<pre>' + parsed.body + '</pre>'
+
+      Object.keys(parsed.data).forEach(function (key) {
+        document.querySelectorAll('[data-page-field="' + key + '"]').forEach(function (el) {
+          el.textContent = parsed.data[key]
+        })
+      })
+
+      if (container) {
+        if (window.marked) {
+          container.innerHTML = marked.parse(parsed.body)
+        } else {
+          container.innerHTML = '<pre>' + parsed.body + '</pre>'
+        }
+        buildToc()
       }
-      buildToc()
     } catch (err) {
       console.error(err)
       container.innerHTML = '<p style="text-align:center;color:#c00;padding:48px 0;">Không tải được nội dung. Vui lòng thử lại sau.</p>'

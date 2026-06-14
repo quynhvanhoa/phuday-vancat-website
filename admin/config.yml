@@ -21,7 +21,9 @@ collections:
         fields:
           - { label: Tiêu đề lớn (Hero H1), name: title, widget: string }
           - { label: Câu phụ dưới tiêu đề (xuống dòng OK), name: hero_subtitle, widget: text }
+          - { label: Ảnh nền Hero (banner đầu trang), name: hero_image, widget: image, required: false, hint: "Để trống nếu muốn giữ nền đỏ son mặc định" }
           - { label: Tiêu đề lời chào, name: welcome_title, widget: string }
+          - { label: Ảnh cạnh lời chào, name: welcome_image, widget: image, required: false, hint: "Ảnh thủ nhang hoặc cảnh Phủ" }
           - { label: Lời chào (nội dung), name: body, widget: markdown }
           - { label: Người ký tên cuối lời chào, name: welcome_signature, widget: string }
       - file: content/pages/gioi-thieu.md
@@ -48,6 +50,32 @@ collections:
         fields:
           - { label: Tiêu đề trang, name: title, widget: string }
           - { label: Nội dung, name: body, widget: markdown }
+      - file: content/pages/lien-he.md
+        label: Trang Liên hệ
+        name: lien-he
+        fields:
+          - { label: Tiêu đề trang, name: title, widget: string }
+          - { label: Tiêu đề mục đầu trang, name: contact_section_title, widget: string }
+          - { label: Câu giới thiệu, name: intro, widget: string }
+          - { label: Tiêu đề bản đồ, name: map_title, widget: string }
+          - { label: Mô tả bản đồ, name: map_caption, widget: string }
+          - { label: Tiêu đề mục cung tiến, name: donate_title, widget: string }
+          - { label: Nội dung Cung tiến công đức, name: body, widget: markdown }
+
+  - name: settings
+    label: Cài đặt chung
+    files:
+      - file: content/settings/general.md
+        label: Thông tin liên hệ chung
+        name: general
+        fields:
+          - { label: Số điện thoại, name: phone, widget: string }
+          - { label: Tên người nhận (vd Thủ nhang Trần Văn Cường), name: phone_label, widget: string }
+          - { label: Địa chỉ, name: address, widget: string }
+          - { label: Giờ mở cửa, name: open_hours, widget: string }
+          - { label: Email (tùy chọn), name: email, widget: string, required: false }
+          - { label: Facebook URL, name: facebook, widget: string, required: false }
+          - { label: Hiển thị link Facebook (vd facebook.com/Phudayvancatnd), name: facebook_label, widget: string, required: false }
 
   - name: posts
     label: Bài viết

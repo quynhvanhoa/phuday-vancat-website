@@ -13,13 +13,30 @@
     var m = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n?([\s\S]*)$/)
     if (!m) return { data: {}, body: text }
     var data = {}
-    m[1].split('\n').forEach(function (line) {
+    var lines = m[1].split('\n')
+    var i = 0
+    while (i < lines.length) {
+      var line = lines[i]
       var idx = line.indexOf(':')
-      if (idx === -1) return
+      if (idx === -1) { i++; continue }
       var key = line.slice(0, idx).trim()
-      var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '')
-      data[key] = val
-    })
+      var val = line.slice(idx + 1).trim()
+      var blockMatch = val.match(/^([|>])[+-]?$/)
+      if (blockMatch) {
+        var folded = blockMatch[1] === '>'
+        var multi = []
+        i++
+        while (i < lines.length && (/^\s/.test(lines[i]) || lines[i] === '')) {
+          multi.push(lines[i].replace(/^ {1,2}/, ''))
+          i++
+        }
+        while (multi.length && multi[multi.length - 1] === '') multi.pop()
+        data[key] = multi.join(folded ? ' ' : '\n')
+      } else {
+        data[key] = val.replace(/^["']|["']$/g, '')
+        i++
+      }
+    }
     return { data: data, body: m[2] }
   }
 

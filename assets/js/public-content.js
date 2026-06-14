@@ -17,14 +17,17 @@
       if (idx === -1) { i++; continue }
       var key = line.slice(0, idx).trim()
       var val = line.slice(idx + 1).trim()
-      if (val === '|' || val === '>') {
+      var blockMatch = val.match(/^([|>])[+-]?$/)
+      if (blockMatch) {
+        var folded = blockMatch[1] === '>'
         var multi = []
         i++
-        while (i < lines.length && /^\s/.test(lines[i])) {
+        while (i < lines.length && (/^\s/.test(lines[i]) || lines[i] === '')) {
           multi.push(lines[i].replace(/^ {1,2}/, ''))
           i++
         }
-        data[key] = multi.join(val === '|' ? '\n' : ' ')
+        while (multi.length && multi[multi.length - 1] === '') multi.pop()
+        data[key] = multi.join(folded ? ' ' : '\n')
       } else {
         data[key] = val.replace(/^["']|["']$/g, '')
         i++

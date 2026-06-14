@@ -3,7 +3,7 @@ title: Phủ Dầy Vân Cát
 hero_subtitle: |-
   Nơi Mẫu Liễu Hạnh giáng sinh lần thứ hai
   Di tích quốc gia · Di sản văn hóa phi vật thể của nhân loại
-hero_image: ''
+hero_image: /phuday-vancat-website/assets/images/uploads/485696749_540004399132228_4586306074263023822_n.jpg
 welcome_title: Lời chào từ Phủ Dầy Vân Cát
 welcome_image: /phuday-vancat-website/assets/images/uploads/485356726_540004435798891_6607856096567169983_n.jpg
 welcome_signature: Thủ nhang Phủ Dầy Vân Cát
